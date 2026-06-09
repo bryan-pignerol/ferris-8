@@ -14,7 +14,7 @@ fn main() {
 
     let black_color = 0x000000;
 
-    app.ready();
+    let _ = app.ready();
 
     while window.update() {
         window.clear(black_color);

@@ -2,7 +2,6 @@ use mlua::{Function, Lua, Result};
 use std::fs;
 
 pub struct Cartridge {
-    script_path: String,
     lua: Lua,
 }
 
@@ -16,7 +15,6 @@ impl Cartridge {
             .expect("ERROR: Failed to execute Lua code");
 
         Self {
-            script_path: script_path.to_string(),
             lua: lua,
         }
     }
