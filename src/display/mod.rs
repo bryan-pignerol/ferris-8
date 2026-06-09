@@ -1,2 +1,2 @@
 pub mod display;
-pub use display::Video;
+pub use display::Display;
