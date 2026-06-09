@@ -1,3 +1,6 @@
+extern crate bresenham;
+use bresenham::Bresenham;
+
 use minifb::{Key, Scale, Window, WindowOptions};
 
 /// The struct used to create the application window.
@@ -56,18 +59,22 @@ impl Video {
         }
     }
 
-    pub fn draw_line(&mut self, x1: usize, y1: usize, x2: usize, y2: usize, color: u32) {}
+    pub fn draw_line(&mut self, x1: usize, y1: usize, x2: usize, y2: usize, color: u32) {
+        for (x, y) in Bresenham::new((x1 as isize, y1 as isize), (x2 as isize, y2 as isize)) {
+            self.draw_pixel(x as usize, y as usize, color);
+        }
+    }
 
     pub fn draw_rect(&mut self, x1: usize, y1: usize, x2: usize, y2: usize, color: u32) {
-        let (min_x, max_x) = if x1 < x2 || x1 == x2 {
+        let (min_x, max_x) = if x1 <= x2 {
             (x1, x2)
         } else {
             (x2, x1)
         };
-        let (min_y, max_y) = if x1 < x2 || x1 == x2 {
-            (x1, x2)
+        let (min_y, max_y) = if y1 <= y2 {
+            (y1, y2)
         } else {
-            (x2, x1)
+            (y2, y1)
         };
 
         for current_x in min_x..=max_x {

@@ -22,6 +22,7 @@ fn main() {
         let red_color = 0xFF0000;
         video.draw_pixel(64, 64, red_color);
         video.draw_rect(32, 32, 96, 96, red_color);
+        video.draw_line(32, 32, 96, 96, red_color);
     }
 
     println!("Fantasy Console is closed !");
