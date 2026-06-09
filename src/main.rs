@@ -1,10 +1,8 @@
 mod display;
 use display::Video;
 
-
 const WINDOW_WIDTH: usize = 128;
 const WINDOW_HEIGHT: usize = 128;
-
 
 fn main() {
     println!("Fantasy Console is Started !");
@@ -23,6 +21,7 @@ fn main() {
         // DRAW
         let red_color = 0xFF0000;
         video.draw_pixel(64, 64, red_color);
+        video.draw_rect(32, 32, 96, 96, red_color);
     }
 
     println!("Fantasy Console is closed !");

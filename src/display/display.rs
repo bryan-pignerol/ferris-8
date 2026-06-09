@@ -1,4 +1,4 @@
-use minifb::{Key, Window, WindowOptions, Scale};
+use minifb::{Key, Scale, Window, WindowOptions};
 
 /// The struct used to create the application window.
 pub struct Video {
@@ -12,24 +12,22 @@ impl Video {
     // VIDEO
     /// Create the window.
     pub fn new(width: usize, height: usize) -> Self {
-        let mut buffer: Vec<u32> = vec![0; width * height];
+        let buffer: Vec<u32> = vec![0; width * height];
 
         let mut options: WindowOptions = WindowOptions::default();
         options.scale = Scale::X4;
 
-        let mut window = Window::new(
-            "My Fantasy Console in Rust !!!",
-            width,
-            height,
-            options,
-        )
-        .unwrap_or_else(|e| {
-            panic!("{}", e)
-        });
+        let mut window = Window::new("My Fantasy Console in Rust !!!", width, height, options)
+            .unwrap_or_else(|e| panic!("{}", e));
 
         window.set_target_fps(60);
 
-        Self { window, buffer, width, height }
+        Self {
+            window,
+            buffer,
+            width,
+            height,
+        }
     }
 
     /// Clear the window.
@@ -48,7 +46,8 @@ impl Video {
         self.window.is_open() && !self.window.is_key_down(Key::Escape)
     }
 
-    // DRAWINGS
+    // DRAWING
+    /// Draw a pixel at specific coordinates.
     pub fn draw_pixel(&mut self, x: usize, y: usize, color: u32) {
         if x < self.width && y < self.height {
             let index = y * self.width + x;
@@ -59,5 +58,26 @@ impl Video {
 
     pub fn draw_line(&mut self, x1: usize, y1: usize, x2: usize, y2: usize, color: u32) {}
 
-    pub fn draw_rect(&mut self, x1: usize, y1: usize, x2: usize, y2: usize, color: u32) {}
+    pub fn draw_rect(&mut self, x1: usize, y1: usize, x2: usize, y2: usize, color: u32) {
+        let (min_x, max_x) = if x1 < x2 || x1 == x2 {
+            (x1, x2)
+        } else {
+            (x2, x1)
+        };
+        let (min_y, max_y) = if x1 < x2 || x1 == x2 {
+            (x1, x2)
+        } else {
+            (x2, x1)
+        };
+
+        for current_x in min_x..=max_x {
+            self.draw_pixel(current_x, y1, color);
+            self.draw_pixel(current_x, y2, color);
+        }
+
+        for current_y in min_y..=max_y {
+            self.draw_pixel(x1, current_y, color);
+            self.draw_pixel(x2, current_y, color);
+        }
+    }
 }
