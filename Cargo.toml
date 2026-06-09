@@ -1,0 +1,10 @@
+[package]
+name = "rust-fantasy-console"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+env_logger = "0.11.10"
+log = "0.4.32"
+minifb = "0.28.0"
+mlua = { version = "0.11.6", features = ["lua55", "vendored"] }
