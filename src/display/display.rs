@@ -59,12 +59,14 @@ impl Display {
         }
     }
 
+    /// Draw a line on the window using the Bresenham's line algorithm.
     pub fn draw_line(&mut self, x1: usize, y1: usize, x2: usize, y2: usize, color: u32) {
         for (x, y) in Bresenham::new((x1 as isize, y1 as isize), (x2 as isize, y2 as isize)) {
             self.draw_pixel(x as usize, y as usize, color);
         }
     }
 
+    /// Draw a rectangle on the window
     pub fn draw_rect(&mut self, x1: usize, y1: usize, x2: usize, y2: usize, color: u32) {
         let (min_x, max_x) = if x1 <= x2 { (x1, x2) } else { (x2, x1) };
         let (min_y, max_y) = if y1 <= y2 { (y1, y2) } else { (y2, y1) };

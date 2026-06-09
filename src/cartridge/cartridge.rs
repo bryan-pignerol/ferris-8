@@ -6,6 +6,7 @@ pub struct Cartridge {
 }
 
 impl Cartridge {
+    /// Create the cartridge and init the lua file.
     pub fn new(script_path: &str) -> Self {
         let lua = Lua::new();
         let lua_code = fs::read_to_string(script_path).expect("ERROR : Failed to read the file");
