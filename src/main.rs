@@ -2,7 +2,6 @@ mod display;
 use display::Display;
 mod cartridge;
 use cartridge::Cartridge;
-use minifb::Key::A;
 
 const WINDOW_WIDTH: usize = 128;
 const WINDOW_HEIGHT: usize = 128;
@@ -11,7 +10,6 @@ fn main() {
     println!("Fantasy Console is Started !");
 
     let mut window: Display = display::Display::new(WINDOW_WIDTH, WINDOW_HEIGHT);
-
     let mut app: Cartridge = cartridge::Cartridge::new("games/app.lua");
 
     let black_color = 0x000000;

@@ -3,20 +3,21 @@ use std::fs;
 
 pub struct Cartridge {
     script_path: String,
-    lua: Lua
+    lua: Lua,
 }
 
 impl Cartridge {
     pub fn new(script_path: &str) -> Self {
         let lua = Lua::new();
-        let lua_code = fs::read_to_string(script_path)
-            .expect("ERROR : Failed to read the file");
+        let lua_code = fs::read_to_string(script_path).expect("ERROR : Failed to read the file");
 
-        lua.load(&lua_code).exec().expect("ERROR: Failed to execute Lua code");
+        lua.load(&lua_code)
+            .exec()
+            .expect("ERROR: Failed to execute Lua code");
 
         Self {
             script_path: script_path.to_string(),
-            lua: lua
+            lua: lua,
         }
     }
 
