@@ -2,11 +2,12 @@ extern crate bresenham;
 use bresenham::Bresenham;
 
 use minifb::{Key, Scale, Window, WindowOptions};
+use std::{cell::RefCell, rc::Rc};
 
 /// The struct used to create the application window.
 pub struct Display {
     window: Window,
-    buffer: Vec<u32>,
+    buffer: Rc<RefCell<Vec<u32>>>,
     width: usize,
     height: usize,
 }
@@ -15,7 +16,7 @@ impl Display {
     // WINDOW
     /// Create the window.
     pub fn new(width: usize, height: usize) -> Self {
-        let buffer: Vec<u32> = vec![0; width * height];
+        let buffer: Rc<RefCell<Vec<u32>>> = Rc::new(RefCell::new(vec![0; width * height]));
 
         let mut options: WindowOptions = WindowOptions::default();
         options.scale = Scale::X4;
@@ -33,9 +34,14 @@ impl Display {
         }
     }
 
+    pub fn get_buffer(&self) -> Rc<RefCell<Vec<u32>>> {
+        Rc::clone(&self.buffer)
+    }
+
     /// Clear the window.
     pub fn clear(&mut self, color: u32) {
-        for pixel in self.buffer.iter_mut() {
+        let mut buffer = self.buffer.borrow_mut();
+        for pixel in buffer.iter_mut() {
             *pixel = color;
         }
     }
@@ -43,7 +49,7 @@ impl Display {
     /// Update the window.
     pub fn update(&mut self) -> bool {
         self.window
-            .update_with_buffer(&self.buffer, self.width, self.height)
+            .update_with_buffer(&self.buffer.borrow(), self.width, self.height)
             .unwrap();
 
         self.window.is_open() && !self.window.is_key_down(Key::Escape)
@@ -55,7 +61,7 @@ impl Display {
         if x < self.width && y < self.height {
             let index = y * self.width + x;
 
-            self.buffer[index] = color;
+            self.buffer.borrow_mut()[index] = color;
         }
     }
 

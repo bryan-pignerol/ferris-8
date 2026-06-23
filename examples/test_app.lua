@@ -1,11 +1,17 @@
 function Ready()
-    print("Hello, world!")
+    pset(64, 64, 0xFF0000)
+    pset(64, 64, 0xFF0000)
+    rect(32, 32, 96, 96, 0xFF0000)
+    line(32, 32, 96, 96, 0xFF0000)
 end
 
 function Update()
-    print("test update")
+
 end
 
 function Draw()
-    print("test draw")
+    clr(0x000000)
+    pset(64, 64, 0xFF0000)
+    rect(32, 32, 96, 96, 0xFF0000)
+    line(32, 32, 96, 96, 0xFF0000)
 end
