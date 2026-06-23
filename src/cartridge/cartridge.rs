@@ -1,13 +1,14 @@
 use mlua::{Function, Lua, Result};
-use std::fs;
+use std::{cell::{RefCell}, fs, rc::Rc};
 
 pub struct Cartridge {
     lua: Lua,
+    buffer: Rc<RefCell<Vec<u32>>>
 }
 
 impl Cartridge {
     /// Create the cartridge and init the lua file.
-    pub fn new(script_path: &str) -> Self {
+    pub fn new(script_path: &str, buffer: Rc<RefCell<Vec<u32>>>) -> Self {
         let lua = Lua::new();
         let lua_code = fs::read_to_string(script_path).expect("ERROR : Failed to read the file");
 
@@ -17,6 +18,7 @@ impl Cartridge {
 
         Self {
             lua: lua,
+            buffer: buffer
         }
     }
 
