@@ -3,9 +3,9 @@ function Ready()
 end
 
 function Update()
-    
+    print("test update")
 end
 
 function Draw()
-    
+    print("test draw")
 end

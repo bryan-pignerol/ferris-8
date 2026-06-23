@@ -29,7 +29,21 @@ impl Cartridge {
         Ok(())
     }
 
-    pub fn update(&mut self) {}
+    pub fn update(&mut self) -> Result<()> {
+        let globals = self.lua.globals();
+        let ready_function: Function = globals.get("Update")?;
 
-    pub fn draw(&mut self) {}
+        let () = ready_function.call(())?;
+
+        Ok(())
+    }
+
+    pub fn draw(&mut self) -> Result<()> {
+        let globals = self.lua.globals();
+        let ready_function: Function = globals.get("Draw")?;
+
+        let () = ready_function.call(())?;
+
+        Ok(())
+    }
 }
