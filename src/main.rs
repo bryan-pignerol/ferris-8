@@ -21,13 +21,9 @@ fn main() {
         WINDOW_HEIGHT,
     );
 
-    let black_color = 0x000000;
-
     let _ = app.ready();
 
     while window.update() {
-        window.clear(black_color);
-
         // GET KEYBOARD INPUTS
 
         // EXECUTE LUA SCRIPT
