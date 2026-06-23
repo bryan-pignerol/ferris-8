@@ -1,6 +1,6 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/Ferris-8-logo-dark.png">
-  <img alt="Logo of Ferris-8" src="assets/Ferris-8-logo-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/Ferris-8-logo-light.png">
+  <img alt="Logo of Ferris-8" src="assets/Ferris-8-logo-dark.png">
 </picture>
 
 ## About
