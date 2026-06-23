@@ -1,11 +1,11 @@
 function Ready()
-    print("Hello, world!")
+    pset(64, 64, 0xFF0000)
 end
 
 function Update()
-    print("test update")
+    pset(64, 64, 0xFF0000)
 end
 
 function Draw()
-    print("test draw")
+
 end

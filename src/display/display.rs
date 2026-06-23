@@ -1,8 +1,8 @@
 extern crate bresenham;
 use bresenham::Bresenham;
 
-use std::{cell::{RefCell}, rc::Rc};
 use minifb::{Key, Scale, Window, WindowOptions};
+use std::{cell::RefCell, rc::Rc};
 
 /// The struct used to create the application window.
 pub struct Display {
