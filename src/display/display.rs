@@ -34,7 +34,7 @@ impl Display {
         }
     }
 
-    pub fn get_buffer(&mut self) -> Rc<RefCell<Vec<u32>>> {
+    pub fn get_buffer(&self) -> Rc<RefCell<Vec<u32>>> {
         Rc::clone(&self.buffer)
     }
 
