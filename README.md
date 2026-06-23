@@ -1,8 +1,5 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/Ferris-8-logo-light.png">
-  <source media="(prefers-color-scheme: light)" srcset="assets/Ferris-8-logo-dark.png">
-  <img alt="Logo of Ferris-8" src="assets/Ferris-8-logo-dark.png">
-</picture>
+![Ferris-8 Logo](.github/images/Ferris-8-logo-light.png#gh-dark-mode-only)
+![Ferris-8 Logo](.github/images/Ferris-8-logo-dark.png#gh-light-mode-only)
 
 ## About
 Ferris-8 is what we called a "Fantasy Console". You can code your game in Lua language.
