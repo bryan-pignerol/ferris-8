@@ -2,12 +2,12 @@ use minifb::{Key, KeyRepeat, Window};
 
 /// The struct dedicated to the input.
 /// 6 differents buttons :
-///     - Up : Up Arrow
-///     - Down : Down Arrow
-///     - Left : Left Arrow
-///     - Right : Right Arrow
-///     - A : Key X
-///     - B : Key B
+///     - (0) Up    : Up Arrow
+///     - (1) Down  : Down Arrow
+///     - (2) Left  : Left Arrow
+///     - (3) Right : Right Arrow
+///     - (4) A     : Key X
+///     - (5) B     : Key C
 pub struct Gamepad {
     buttons: [bool; 6],
 }
