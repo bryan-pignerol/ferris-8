@@ -1,9 +1,9 @@
 extern crate bresenham;
 use bresenham::Bresenham;
 
-use mlua::{Function, IntoLua, Lua, Result};
+use mlua::{Function, Lua, Result};
 use std::{
-    cell::{Ref, RefCell},
+    cell::{RefCell},
     fs,
     rc::Rc,
 };
@@ -48,7 +48,7 @@ impl Cartridge {
         // clr function
         let buffer_for_clr = Rc::clone(&buffer);
         let clr = lua
-            .create_function(move |_, (color): (u32)| {
+            .create_function(move |_, color: u32| {
                 for pixel in buffer_for_clr.borrow_mut().iter_mut() {
                     *pixel = color;
                 }
@@ -137,7 +137,7 @@ impl Cartridge {
     pub fn bind_input_api(lua: &Lua, gamepad: Rc<RefCell<Gamepad>>) {
         let buffer_for_btn = Rc::clone(&gamepad);
         let btn = lua
-            .create_function(move |_, (id): (usize)| {
+            .create_function(move |_, id: usize| {
                 let g = buffer_for_btn.borrow();
                 Ok(g.is_pressed(id))
             })

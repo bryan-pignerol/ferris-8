@@ -1,4 +1,4 @@
-use minifb::{Key, KeyRepeat, Window};
+use minifb::{Key, Window};
 
 /// The struct dedicated to the input.
 /// 6 differents buttons :
