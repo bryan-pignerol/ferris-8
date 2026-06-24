@@ -1,12 +1,19 @@
 extern crate bresenham;
 use bresenham::Bresenham;
 
-use mlua::{Function, Lua, Result};
-use std::{cell::RefCell, fs, rc::Rc};
+use mlua::{Function, IntoLua, Lua, Result};
+use std::{
+    cell::{Ref, RefCell},
+    fs,
+    rc::Rc,
+};
+
+use crate::input::Gamepad;
 
 pub struct Cartridge {
     lua: Lua,
     shared_buffer: Rc<RefCell<Vec<u32>>>,
+    gamepad: Rc<RefCell<Gamepad>>,
 }
 
 impl Cartridge {
@@ -14,6 +21,7 @@ impl Cartridge {
     pub fn new(
         script_path: &str,
         shared_buffer: Rc<RefCell<Vec<u32>>>,
+        gamepad: Rc<RefCell<Gamepad>>,
         width: usize,
         height: usize,
     ) -> Self {
@@ -22,7 +30,8 @@ impl Cartridge {
         let buffer: Rc<RefCell<Vec<u32>>> = Rc::clone(&shared_buffer);
 
         let lua_code = fs::read_to_string(script_path).expect("ERROR : Failed to read the file");
-        Self::bind_api(&lua, buffer, width, height);
+        Self::bind_draw_api(&lua, buffer, width, height);
+        Self::bind_input_api(&lua, Rc::clone(&gamepad));
 
         lua.load(&lua_code)
             .exec()
@@ -31,10 +40,11 @@ impl Cartridge {
         Self {
             lua: lua,
             shared_buffer: shared_buffer,
+            gamepad: gamepad,
         }
     }
 
-    pub fn bind_api(lua: &Lua, buffer: Rc<RefCell<Vec<u32>>>, width: usize, height: usize) {
+    pub fn bind_draw_api(lua: &Lua, buffer: Rc<RefCell<Vec<u32>>>, width: usize, height: usize) {
         // clr function
         let buffer_for_clr = Rc::clone(&buffer);
         let clr = lua
@@ -122,6 +132,20 @@ impl Cartridge {
         lua.globals()
             .set("rect", rect)
             .expect("ERROR: Cannot add rect function");
+    }
+
+    pub fn bind_input_api(lua: &Lua, gamepad: Rc<RefCell<Gamepad>>) {
+        let buffer_for_btn = Rc::clone(&gamepad);
+        let btn = lua
+            .create_function(move |_, (id): (usize)| {
+                let g = buffer_for_btn.borrow();
+                Ok(g.is_pressed(id))
+            })
+            .expect("ERROR : Cannot create btn function");
+
+        lua.globals()
+            .set("btn", btn)
+            .expect("ERROR: Cannot add btn function");
     }
 
     pub fn ready(&mut self) -> Result<()> {
