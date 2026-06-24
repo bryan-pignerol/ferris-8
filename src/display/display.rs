@@ -34,6 +34,10 @@ impl Display {
         }
     }
 
+    pub fn get_window(&self) -> &Window {
+        &self.window
+    }
+
     pub fn get_buffer(&self) -> Rc<RefCell<Vec<u32>>> {
         Rc::clone(&self.buffer)
     }
