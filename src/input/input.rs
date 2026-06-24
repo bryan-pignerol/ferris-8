@@ -29,10 +29,6 @@ impl Gamepad {
     }
 
     pub fn is_pressed(&self, id: usize) -> bool {
-        if id < 6 {
-            self.buttons[id]
-        } else {
-            false
-        }
+        if id < 6 { self.buttons[id] } else { false }
     }
 }
