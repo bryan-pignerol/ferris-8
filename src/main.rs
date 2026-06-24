@@ -1,9 +1,11 @@
-mod display;
 use std::{cell::RefCell, rc::Rc};
 
-use display::Display;
 mod cartridge;
 use cartridge::Cartridge;
+mod display;
+use display::Display;
+mod input;
+use input::Gamepad;
 
 const WINDOW_WIDTH: usize = 128;
 const WINDOW_HEIGHT: usize = 128;
