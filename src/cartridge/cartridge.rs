@@ -2,11 +2,7 @@ extern crate bresenham;
 use bresenham::Bresenham;
 
 use mlua::{Function, Lua, Result};
-use std::{
-    cell::{RefCell},
-    fs,
-    rc::Rc,
-};
+use std::{cell::RefCell, fs, rc::Rc};
 
 use crate::input::Gamepad;
 
@@ -157,20 +153,20 @@ impl Cartridge {
         Ok(())
     }
 
-    pub fn update(&mut self) -> Result<()> {
+    pub fn update(&mut self, dt: f32) -> Result<()> {
         let globals = self.lua.globals();
         let update_function: Function = globals.get("Update")?;
 
-        let () = update_function.call(())?;
+        let () = update_function.call(dt)?;
 
         Ok(())
     }
 
-    pub fn draw(&mut self) -> Result<()> {
+    pub fn draw(&mut self, dt: f32) -> Result<()> {
         let globals = self.lua.globals();
         let draw_function: Function = globals.get("Draw")?;
 
-        let () = draw_function.call(())?;
+        let () = draw_function.call(dt)?;
 
         Ok(())
     }
