@@ -1,5 +1,6 @@
 POS_X = 64
 POS_Y = 64
+SPD = 50
 
 function Ready()
     pset(pos_x, POS_Y, 0x0000FF)
@@ -8,19 +9,19 @@ function Ready()
     --line(32, 32, 96, 96, 0xFF0000)
 end
 
-function Update()
+function Update(dt)
     if btn(0) then
-        POS_Y = POS_Y - 1
+        POS_Y = POS_Y - (SPD * dt)
     elseif btn(1) then
-        POS_Y = POS_Y + 1
+        POS_Y = POS_Y + (SPD * dt)
     elseif btn(2) then
-        POS_X = POS_X - 1
+        POS_X = POS_X - (SPD * dt)
     elseif btn(3) then
-        POS_X = POS_X + 1
+        POS_X = POS_X + (SPD * dt)
     end
 end
 
-function Draw()
+function Draw(dt)
     clr(0x000000)
     pset(POS_X, POS_Y, 0x0000FF)
     rect(32, 32, 96, 96, 0xFF0000)
