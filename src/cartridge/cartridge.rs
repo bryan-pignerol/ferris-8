@@ -43,74 +43,46 @@ impl Cartridge {
 
     pub fn bind_constants_api(lua: &Lua) {
         // COLORS
-        lua.globals()
-            .set("BLACK", 0x000000)
-            .expect("ERROR : Cannot add BLACK constant");
-        lua.globals()
-            .set("DARK_BLUE", 0x1D2B53)
-            .expect("ERROR : Cannot add DARK_BLUE constant");
-        lua.globals()
-            .set("DARK_PURPLE", 0x7E2553)
-            .expect("ERROR : Cannot add DARK_PURPLE constant");
-        lua.globals()
-            .set("DARK_GREEN", 0x008751)
-            .expect("ERROR : Cannot add DARK_GREEN constant");
-        lua.globals()
-            .set("BROWN", 0xAB5236)
-            .expect("ERROR : Cannot add BROWN constant");
-        lua.globals()
-            .set("DARK_GRAY", 0x5F574F)
-            .expect("ERROR : Cannot add DARK_GRAY constant");
-        lua.globals()
-            .set("LIGHT_GRAY", 0xC2C3C7)
-            .expect("ERROR : Cannot add LIGHT_GRAY constant");
-        lua.globals()
-            .set("WHITE", 0xFFF1E8)
-            .expect("ERROR : Cannot add WHITE constant");
-        lua.globals()
-            .set("RED", 0xFF004D)
-            .expect("ERROR : Cannot add RED constant");
-        lua.globals()
-            .set("ORANGE", 0xFFA300)
-            .expect("ERROR : Cannot add ORANGE constant");
-        lua.globals()
-            .set("YELLOW", 0xFFEC27)
-            .expect("ERROR : Cannot add YELLOW constant");
-        lua.globals()
-            .set("GREEN", 0x00E436)
-            .expect("ERROR : Cannot add GREEN constant");
-        lua.globals()
-            .set("BLUE", 0x29ADFF)
-            .expect("ERROR : Cannot add BLUE constant");
-        lua.globals()
-            .set("INDIGO", 0x83769C)
-            .expect("ERROR : Cannot add INDIGO constant");
-        lua.globals()
-            .set("PINK", 0xFF77A8)
-            .expect("ERROR : Cannot add PINK constant");
-        lua.globals()
-            .set("PEACH", 0xFFCCAA)
-            .expect("ERROR : Cannot add PEACH constant");
+        let colors = [
+            ("BLACK", 0x000000),
+            ("DARK_BLUE", 0x1D2B53),
+            ("DARK_PURPLE", 0x7E2553),
+            ("DARK_GREEN", 0x008751),
+            ("BROWN", 0xAB5236),
+            ("DARK_GRAY", 0x5F574F),
+            ("LIGHT_GRAY", 0xC2C3C7),
+            ("WHITE", 0xFFF1E8),
+            ("RED", 0xFF004D),
+            ("ORANGE", 0xFFA300),
+            ("YELLOW", 0xFFEC27),
+            ("GREEN", 0x00E436),
+            ("BLUE", 0x29ADFF),
+            ("INDIGO", 0x83769C),
+            ("PINK", 0xFF77A8),
+            ("PEACH", 0xFFCCAA),
+        ];
+
+        for (color, value) in colors {
+            lua.globals()
+                .set(color, value)
+                .expect(&format!("ERROR : Cannot add {} constant", color));
+        }
 
         // INPUT
-        lua.globals()
-            .set("UP", 0)
-            .expect("ERROR : Cannot add UP constant");
-        lua.globals()
-            .set("DOWN", 1)
-            .expect("ERROR : Cannot add DOWN constant");
-        lua.globals()
-            .set("LEFT", 2)
-            .expect("ERROR : Cannot add LEFT constant");
-        lua.globals()
-            .set("RIGHT", 3)
-            .expect("ERROR : Cannot add RIGHT constant");
-        lua.globals()
-            .set("A", 4)
-            .expect("ERROR : Cannot add A constant");
-        lua.globals()
-            .set("B", 5)
-            .expect("ERROR : Cannot add B constant");
+        let inputs = [
+            ("UP", 0),
+            ("DOWN", 1),
+            ("LEFT", 2),
+            ("RIGHT", 3),
+            ("A", 4),
+            ("B", 5),
+        ];
+
+        for (input, value) in inputs {
+            lua.globals()
+                .set(input, value)
+                .expect(&format!("ERROR : Cannot add {} constant", input));
+        }
     }
 
     pub fn bind_draw_api(lua: &Lua, buffer: Rc<RefCell<Vec<u32>>>, width: usize, height: usize) {
