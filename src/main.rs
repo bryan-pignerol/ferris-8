@@ -59,6 +59,7 @@ fn main() {
 
         // DRAW
         let _ = app.draw(delta_time);
+        window.draw_text("1234567890", 16, 16, 0xFF0000);
     }
 
     println!("Ferris-8 is closed !");
