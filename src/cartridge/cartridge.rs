@@ -5,6 +5,7 @@ use mlua::{Function, Lua, Result};
 use std::{cell::RefCell, fs, rc::Rc};
 
 use crate::input::Gamepad;
+use crate::display::font::*;
 
 pub struct Cartridge {
     lua: Lua,
@@ -173,6 +174,66 @@ impl Cartridge {
         lua.globals()
             .set("rect", rect)
             .expect("ERROR: Cannot add rect function");
+
+        // rect function
+        let buffer_for_txt = Rc::clone(&buffer);
+        let txt = lua
+            .create_function(
+                move |_, (text, start_x, start_y, color): (String, usize, usize, u32)| {
+                    let mut b = buffer_for_txt.borrow_mut();
+                    let mut cursor_x = start_x;
+                    let mut cursor_y = start_y;
+
+                    for character in text.chars() {
+                        if character == '\n' {
+                            cursor_x = start_x;
+                            cursor_y += CHAR_HEIGHT + 1;
+                            continue;
+                        }
+
+                        let bitmap: [u8; 5] = match character {
+                            '1' => NUMBER_1,
+                            '2' => NUMBER_2,
+                            '3' => NUMBER_3,
+                            '4' => NUMBER_4,
+                            '5' => NUMBER_5,
+                            '6' => NUMBER_6,
+                            '7' => NUMBER_7,
+                            '8' => NUMBER_8,
+                            '9' => NUMBER_9,
+                            '0' => NUMBER_0,
+                            _ => NUMBER_0,
+                        };
+
+                        for char_y in 0..CHAR_HEIGHT {
+                            let line = bitmap[char_y];
+
+                            for char_x in 0..CHAR_WIDTH {
+                                let bit = (line >> (3 - char_x)) & 1;
+
+                                if bit == 1 {
+                                    let x = cursor_x + char_x;
+                                    let y = cursor_y + char_y;
+
+                                    if x < width && y < height {
+                                        let index = y * width + x;
+
+                                        b[index] = color;
+                                    }
+                                }
+                            }
+                        }
+
+                        cursor_x += CHAR_WIDTH + 1;
+                    }
+                    Ok(())
+                },
+            )
+            .expect("ERROR : Cannot create txt function");
+
+        lua.globals()
+            .set("txt", txt)
+            .expect("ERROR: Cannot add txt function");
     }
 
     pub fn bind_input_api(lua: &Lua, gamepad: Rc<RefCell<Gamepad>>) {
