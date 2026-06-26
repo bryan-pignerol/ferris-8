@@ -106,7 +106,7 @@ impl Display {
             '8' => NUMBER_8,
             '9' => NUMBER_9,
             '0' => NUMBER_0,
-            _ => NUMBER_0
+            _ => NUMBER_0,
         };
 
         for y in 0..CHAR_HEIGHT {
@@ -124,10 +124,17 @@ impl Display {
 
     pub fn draw_text(&mut self, text: &str, start_x: usize, start_y: usize, color: u32) {
         let mut x = start_x;
+        let mut y = start_y;
 
         for character in text.chars() {
-            self.draw_char(character, x, start_y, color);
-            x += 5;
+            if character == '\n' {
+                x = start_x;
+                y += CHAR_HEIGHT + 1;
+                continue;
+            }
+
+            self.draw_char(character, x, y, color);
+            x += CHAR_WIDTH + 1;
         }
     }
 }
