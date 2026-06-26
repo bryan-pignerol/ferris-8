@@ -4,6 +4,8 @@ use bresenham::Bresenham;
 use minifb::{Key, Scale, Window, WindowOptions};
 use std::{cell::RefCell, rc::Rc};
 
+use crate::display::font::*;
+
 /// The struct used to create the application window.
 pub struct Display {
     window: Window,
@@ -89,6 +91,50 @@ impl Display {
         for current_y in min_y..=max_y {
             self.draw_pixel(x1, current_y, color);
             self.draw_pixel(x2, current_y, color);
+        }
+    }
+
+    pub fn draw_char(&mut self, character: char, start_x: usize, start_y: usize, color: u32) {
+        let bitmap: [u8; 5] = match character {
+            '1' => NUMBER_1,
+            '2' => NUMBER_2,
+            '3' => NUMBER_3,
+            '4' => NUMBER_4,
+            '5' => NUMBER_5,
+            '6' => NUMBER_6,
+            '7' => NUMBER_7,
+            '8' => NUMBER_8,
+            '9' => NUMBER_9,
+            '0' => NUMBER_0,
+            _ => NUMBER_0,
+        };
+
+        for y in 0..CHAR_HEIGHT {
+            let line = bitmap[y];
+
+            for x in 0..CHAR_WIDTH {
+                let bit = (line >> (3 - x)) & 1;
+
+                if bit == 1 {
+                    self.draw_pixel(start_x + x, start_y + y, color);
+                }
+            }
+        }
+    }
+
+    pub fn draw_text(&mut self, text: &str, start_x: usize, start_y: usize, color: u32) {
+        let mut x = start_x;
+        let mut y = start_y;
+
+        for character in text.chars() {
+            if character == '\n' {
+                x = start_x;
+                y += CHAR_HEIGHT + 1;
+                continue;
+            }
+
+            self.draw_char(character, x, y, color);
+            x += CHAR_WIDTH + 1;
         }
     }
 }
