@@ -202,6 +202,10 @@ impl Cartridge {
                             '8' => NUMBER_8,
                             '9' => NUMBER_9,
                             '0' => NUMBER_0,
+                            'E' => LETTER_E,
+                            'H' => LETTER_H,
+                            'L' => LETTER_L,
+                            'O' => LETTER_O,
                             _ => NUMBER_0,
                         };
 

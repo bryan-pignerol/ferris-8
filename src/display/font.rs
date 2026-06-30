@@ -80,3 +80,35 @@ pub const NUMBER_0: [u8; 5] = [
     0b1001, // X  X
     0b0110, //  XX
 ];
+
+pub const LETTER_E: [u8; 5] = [
+    0b1111, // XXXX
+    0b1000, // X
+    0b1110, // XXX
+    0b1000, // X
+    0b1111, // XXXX
+];
+
+pub const LETTER_H: [u8; 5] = [
+    0b1001, // X  X
+    0b1001, // X  X
+    0b1111, // XXXX
+    0b1001, // X  X
+    0b1001, // X  X
+];
+
+pub const LETTER_L: [u8; 5] = [
+    0b1000, // X
+    0b1000, // X
+    0b1000, // X
+    0b1000, // X
+    0b1111, // XXXX
+];
+
+pub const LETTER_O: [u8; 5] = [
+    0b1111, // XXXX
+    0b1001, // X  X
+    0b1001, // X  X
+    0b1001, // X  X
+    0b1111, // XXXX
+];

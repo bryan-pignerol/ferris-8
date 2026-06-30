@@ -25,5 +25,6 @@ function Draw(dt)
     pset(POS_X, POS_Y, BLUE)
     rect(32, 32, 96, 96, RED)
     --line(32, 32, 96, 96, 0xFF0000)
+    txt("HELLO", 50, 50, ORANGE)
     txt("12345\n67890", 16, 16, RED)
 end
