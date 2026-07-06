@@ -14,3 +14,7 @@ Ferris-8 is what we called a "Fantasy Console". You can code your game in Lua la
 ## Licence
 
 Ferris-8 is licensed under the MIT License.
+
+## Resources
+
+- Font : [Cozette](https://github.com/the-moonwitch/Cozette/)
