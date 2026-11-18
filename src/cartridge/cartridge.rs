@@ -1,6 +1,4 @@
-extern crate bresenham;
 use bresenham::Bresenham;
-
 use mlua::{Function, Lua, Result};
 use std::{cell::RefCell, fs, rc::Rc};
 
